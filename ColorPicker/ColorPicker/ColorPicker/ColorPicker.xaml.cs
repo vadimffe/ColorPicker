@@ -38,7 +38,6 @@ namespace MarineDash.Controls.ColorPicker
     /// <summary>
     /// Get the current Picked Color
     /// </summary>
-    private Color pickedColor;
     public Color PickedColor
     {
       get { return (Color)GetValue(PickedColorProperty); }

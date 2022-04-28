@@ -14,7 +14,23 @@ namespace ColorPicker.ViewModels
     public SettingsViewModel()
     {
       this.Title = "Settings";
+
+      //this.OutlineColor = Color.Blue;  
     }
+
+    //private Color outlineColor;
+    //public Color OutlineColor
+    //{
+    //  get
+    //  {
+    //    return outlineColor;
+    //  }
+    //  set
+    //  {
+    //    outlineColor = value;
+    //    this.OnPropertyChanged();
+    //  }
+    //}
 
     public Color OutlineColor
     {
