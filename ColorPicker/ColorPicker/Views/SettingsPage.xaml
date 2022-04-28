@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:colorpicker="clr-namespace:MarineDash.Controls.ColorPicker" 
              xmlns:vm="clr-namespace:ColorPicker.ViewModels"
-             x:Class="ColorPicker.Views.SettingsPage">
+             x:Class="ColorPicker.Views.SettingsPage"
+             Title="{Binding Title}">
 
   <ContentPage.BindingContext>
     <vm:SettingsViewModel />
@@ -11,12 +12,7 @@
   
   <ContentPage.Content>
     <StackLayout>
-      <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-
-      <colorpicker:ColorPicker HeightRequest="300" PointerCircleDiameterUnits="0.8"
-                                       WidthRequest="400" PickedColor="{Binding OutlineColor}" />
+      <colorpicker:ColorPicker HeightRequest="400" PointerCircleDiameterUnits="0.5" PickedColor="{Binding OutlineColor}" />
     </StackLayout>
   </ContentPage.Content>
 </ContentPage>

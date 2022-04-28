@@ -5,11 +5,11 @@ using Xamarin.Forms;
 
 namespace ColorPicker.ViewModels
 {
-  public class AboutViewModel : BaseViewModel
+  public class HomeViewModel : BaseViewModel
   {
-    public AboutViewModel()
+    public HomeViewModel()
     {
-      this.Title = "About";
+      this.Title = "Main";
       this.RefreshCommand = new Command(() => this.UpdateColor());
     }
 

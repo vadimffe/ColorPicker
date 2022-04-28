@@ -13,15 +13,20 @@ namespace ColorPicker.ViewModels
   {
     public SettingsViewModel()
     {
-      this.Title = "Browse";
+      this.Title = "Settings";
     }
 
     public Color OutlineColor
     {
-      get => Color.FromHex(Preferences.Get("OutlineColorHex", "#17805d"));
+      get
+      {
+        Debug.WriteLine(Preferences.Get("OutlineColorHex", "#17805d"));
+        return Color.FromHex(Preferences.Get("OutlineColorHex", "#17805d"));
+      }
       set
       {
         Preferences.Set("OutlineColorHex", value.ToHex());
+        //Debug.WriteLine(value.ToHex());
         this.OnPropertyChanged();
       }
     }
