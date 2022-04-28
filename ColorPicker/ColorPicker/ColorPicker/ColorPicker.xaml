@@ -7,6 +7,9 @@
             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
             mc:Ignorable="d">
 
-  <skia:SKCanvasView x:Name="SkCanvasView" EnableTouchEvents="True" PaintSurface="SkCanvasView_OnPaintSurface" Touch="SkCanvasView_OnTouch" />
+  <skia:SKCanvasView x:Name="SkCanvasView" 
+                     EnableTouchEvents="True" 
+                     PaintSurface="SkCanvasView_OnPaintSurface" 
+                     Touch="SkCanvasView_OnTouch" />
 
 </ContentView>
