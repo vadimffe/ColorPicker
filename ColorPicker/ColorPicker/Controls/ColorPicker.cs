@@ -6,7 +6,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
 
-namespace ColorPicker.ColorPicker
+namespace ColorPicker.Controls
 {
   public partial class ColorPicker : SKCanvasView
   {
