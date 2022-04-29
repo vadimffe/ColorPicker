@@ -5,7 +5,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
 
-namespace MarineDash.Controls.ColorPicker
+namespace ColorPicker.Controls.ColorPicker
 {
   [XamlCompilation(XamlCompilationOptions.Compile)]
   public partial class ColorPicker : ContentView
@@ -15,7 +15,8 @@ namespace MarineDash.Controls.ColorPicker
     /// </summary>
     public event EventHandler<Color> PickedColorChanged;
 
-    public static readonly BindableProperty PickedColorProperty = BindableProperty.Create(
+    public static readonly BindableProperty PickedColorProperty 
+      = BindableProperty.Create(
         propertyName: nameof(PickedColor),
         returnType: typeof(Color),
         declaringType: typeof(ColorPicker),
@@ -44,8 +45,8 @@ namespace MarineDash.Controls.ColorPicker
       set { SetValue(PickedColorProperty, value); }
     }
 
-    public static readonly BindableProperty GradientColorStyleProperty
-        = BindableProperty.Create(
+    public static readonly BindableProperty GradientColorStyleProperty 
+      = BindableProperty.Create(
             nameof(GradientColorStyle),
             typeof(GradientColorStyle),
             typeof(ColorPicker),
@@ -62,8 +63,8 @@ namespace MarineDash.Controls.ColorPicker
     }
 
 
-    public static readonly BindableProperty ColorListProperty
-        = BindableProperty.Create(
+    public static readonly BindableProperty ColorListProperty 
+      = BindableProperty.Create(
             nameof(ColorList),
             typeof(string[]),
             typeof(ColorPicker),
@@ -266,8 +267,8 @@ namespace MarineDash.Controls.ColorPicker
       }
 
       // Set selected color
-      PickedColor = touchPointColor.ToFormsColor();
-      PickedColorChanged?.Invoke(this, PickedColor);
+      this.PickedColor = touchPointColor.ToFormsColor();
+      this.PickedColorChanged?.Invoke(this, this.PickedColor);
     }
 
     private void SkCanvasView_OnTouch(object sender, SKTouchEventArgs e)
