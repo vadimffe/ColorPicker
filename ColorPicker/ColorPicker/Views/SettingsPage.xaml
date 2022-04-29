@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:colorpicker="clr-namespace:MarineDash.Controls.ColorPicker" 
-             xmlns:vm="clr-namespace:ColorPicker.ViewModels"
+             xmlns:vm="clr-namespace:ColorPicker.ViewModels" 
+             xmlns:colorpicker="clr-namespace:ColorPicker.Controls.ColorPicker"
              x:Class="ColorPicker.Views.SettingsPage"
              Title="{Binding Title}">
 
