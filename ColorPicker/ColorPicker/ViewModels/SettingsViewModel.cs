@@ -1,10 +1,4 @@
-﻿using ColorPicker.Models;
-using ColorPicker.Views;
-using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using Xamarin.Essentials;
+﻿using System.Diagnostics;
 using Xamarin.Forms;
 
 namespace ColorPicker.ViewModels
@@ -15,29 +9,30 @@ namespace ColorPicker.ViewModels
     {
       this.Title = "Settings";
 
-      this.OutlineColor = Color.FromHex("#FF40B87D");
+      this.Point = new Point(744, 251);
     }
 
-    //private Color outlineColor;
-    //public Color OutlineColor
-    //{
-    //  get
-    //  {
-    //    return outlineColor;
-    //  }
-    //  set
-    //  {
-    //    outlineColor = value;
-    //    this.OnPropertyChanged();
-    //  }
-    //}
+    private Point point;
+    public Point Point
+    {
+      get
+      {
+        return point;
+      }
+      set
+      {
+        point = value;
+        Debug.WriteLine(string.Format("{0} {1}", value.X, value.Y));
+        this.OnPropertyChanged();
+      }
+    }
 
-    public Color outlineColor;
+    private Color outlineColor;
     public Color OutlineColor
     {
       get
       {
-        Debug.WriteLine(outlineColor.ToHex());
+        //Debug.WriteLine(outlineColor.ToHex());
         return outlineColor;
       }
       set

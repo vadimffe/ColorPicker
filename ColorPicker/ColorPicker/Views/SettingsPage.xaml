@@ -12,7 +12,13 @@
   
   <ContentPage.Content>
     <StackLayout>
-      <colorpicker:CPicker HeightRequest="400" WidthRequest="300" PointerCircleDiameterUnits="0.5" PickedColor="{Binding OutlineColor}" />
+      <colorpicker:CPicker HeightRequest="400" 
+                           WidthRequest="300" 
+                           PointerDiameter="0.3"
+                           PointerStrokeWidth="7"
+                           SelectedPoint="{Binding Point}" 
+                           PickedColor="{Binding OutlineColor}" />
+      <BoxView BackgroundColor="{Binding OutlineColor}"></BoxView>
     </StackLayout>
   </ContentPage.Content>
 </ContentPage>
