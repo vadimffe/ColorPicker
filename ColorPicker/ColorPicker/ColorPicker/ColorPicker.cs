@@ -6,9 +6,9 @@ using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
 
-namespace CPicker.Controls.CPicker
+namespace ColorPicker.ColorPicker
 {
-  public partial class CPicker : SKCanvasView
+  public partial class ColorPicker : SKCanvasView
   {
     /// <summary>
     /// Occurs when the Picked Color changes
@@ -21,14 +21,14 @@ namespace CPicker.Controls.CPicker
       = BindableProperty.Create(
         propertyName: nameof(PickedColor),
         returnType: typeof(Color),
-        declaringType: typeof(CPicker),
+        declaringType: typeof(ColorPicker),
         defaultValue: Color.Green,
         defaultBindingMode: BindingMode.TwoWay,
         propertyChanged: OnColorChanged);
 
     private static void OnColorChanged(BindableObject bindable, object oldValue, object newValue)
     {
-      CPicker control = (CPicker)bindable;
+      ColorPicker control = (ColorPicker)bindable;
       control.PickedColor = (Color)newValue;
     }
 
@@ -45,7 +45,7 @@ namespace CPicker.Controls.CPicker
       = BindableProperty.Create(
             propertyName: nameof(PointerStrokeWidth),
             returnType: typeof(int),
-            declaringType: typeof(CPicker),
+            declaringType: typeof(ColorPicker),
             defaultValue: 15);
 
     /// <summary>
@@ -61,7 +61,7 @@ namespace CPicker.Controls.CPicker
       = BindableProperty.Create(
             propertyName: nameof(SelectedPoint),
             returnType: typeof(Point),
-            declaringType: typeof(CPicker),
+            declaringType: typeof(ColorPicker),
             defaultBindingMode: BindingMode.TwoWay);
 
     //private static void OnPointChanged(BindableObject bindable, object oldValue, object newValue)
@@ -84,7 +84,7 @@ namespace CPicker.Controls.CPicker
       = BindableProperty.Create(
             propertyName: nameof(GradientColorStyle),
             returnType: typeof(GradientColorStyle),
-            declaringType: typeof(CPicker),
+            declaringType: typeof(ColorPicker),
             defaultValue: GradientColorStyle.ColorsToDarkStyle,
             defaultBindingMode: BindingMode.OneTime, null);
 
@@ -101,7 +101,7 @@ namespace CPicker.Controls.CPicker
       = BindableProperty.Create(
             propertyName: nameof(ColorList),
             returnType: typeof(string[]),
-            declaringType: typeof(CPicker),
+            declaringType: typeof(ColorPicker),
             defaultValue: new string[]
             {
               new Color(255, 0, 0).ToHex(), // Red
@@ -127,7 +127,7 @@ namespace CPicker.Controls.CPicker
         = BindableProperty.Create(
             propertyName: nameof(ColorListDirection),
             returnType: typeof(ColorListDirection),
-            declaringType: typeof(CPicker),
+            declaringType: typeof(ColorPicker),
             defaultValue: ColorListDirection.Horizontal,
             defaultBindingMode: BindingMode.OneTime);
 
@@ -144,7 +144,7 @@ namespace CPicker.Controls.CPicker
         = BindableProperty.Create(
             propertyName: nameof(PointerDiameter),
             returnType: typeof(double),
-            declaringType: typeof(CPicker),
+            declaringType: typeof(ColorPicker),
             defaultValue: 0.6,
             defaultBindingMode: BindingMode.OneTime);
 
@@ -159,13 +159,13 @@ namespace CPicker.Controls.CPicker
       set { SetValue(PointerDiameterProperty, value); }
     }
 
-    public CPicker()
+    public ColorPicker()
     {
-      this.EnableTouchEvents = true;
+      EnableTouchEvents = true;
 
-      this.Touch += (sender, e) =>
+      Touch += (sender, e) =>
       {
-        SKSize canvasSize = this.CanvasSize;
+        SKSize canvasSize = CanvasSize;
 
         // Check for each touch point XY position to be inside Canvas
         // Ignore any Touch event ocurred outside the Canvas region 
@@ -175,11 +175,11 @@ namespace CPicker.Controls.CPicker
           //Debug.WriteLine(e.Location.X);
           //Debug.WriteLine(e.Location.Y);
 
-          this.SelectedPoint = new Point(e.Location.X, e.Location.Y);
+          SelectedPoint = new Point(e.Location.X, e.Location.Y);
           e.Handled = true;
 
           // update the Canvas as you wish
-          this.InvalidateSurface();
+          InvalidateSurface();
         }
       };
     }
@@ -188,12 +188,12 @@ namespace CPicker.Controls.CPicker
     {
       SKImageInfo skImageInfo = e.Info;
       SKSurface skSurface = e.Surface;
-      this.SKCanvas = skSurface.Canvas;
+      SKCanvas = skSurface.Canvas;
 
       int skCanvasWidth = skImageInfo.Width;
       int skCanvasHeight = skImageInfo.Height;
 
-      this.SKCanvas.Clear();
+      SKCanvas.Clear();
 
       // Draw gradient rainbow Color spectrum
       using (SKPaint paint = new SKPaint())
@@ -213,7 +213,7 @@ namespace CPicker.Controls.CPicker
             SKShaderTileMode.Clamp))
         {
           paint.Shader = shader;
-          this.SKCanvas.DrawPaint(paint);
+          SKCanvas.DrawPaint(paint);
         }
       }
 
@@ -235,7 +235,7 @@ namespace CPicker.Controls.CPicker
             SKShaderTileMode.Clamp))
         {
           paint.Shader = shader;
-          this.SKCanvas.DrawPaint(paint);
+          SKCanvas.DrawPaint(paint);
         }
       }
 
@@ -256,8 +256,8 @@ namespace CPicker.Controls.CPicker
         skSurface.ReadPixels(skImageInfo,
             dstpixels,
             skImageInfo.RowBytes,
-            (int)this.SelectedPoint.X,
-            (int)this.SelectedPoint.Y);
+            (int)SelectedPoint.X,
+            (int)SelectedPoint.Y);
 
         // access the color
         touchPointColor = bitmap.GetPixel(0, 0);
@@ -269,20 +269,20 @@ namespace CPicker.Controls.CPicker
       using (SKPaint paintTouchPoint = new SKPaint())
       {
         paintTouchPoint.Style = SKPaintStyle.Stroke;
-        paintTouchPoint.StrokeWidth = this.PointerStrokeWidth;
+        paintTouchPoint.StrokeWidth = PointerStrokeWidth;
         paintTouchPoint.Color = SKColors.White;
         paintTouchPoint.IsAntialias = true;
 
         int valueToCalcAgainst = skCanvasWidth > skCanvasHeight ? skCanvasWidth : skCanvasHeight;
 
-        double pointerCircleDiameterUnits = this.PointerDiameter; // 0.6 (Default)
+        double pointerCircleDiameterUnits = PointerDiameter; // 0.6 (Default)
         pointerCircleDiameterUnits = (float)pointerCircleDiameterUnits / 10f; //  calculate 1/10th of that value
         float pointerCircleDiameter = (float)(valueToCalcAgainst * pointerCircleDiameterUnits);
 
         // Outer circle of the Pointer (Ring)
-        this.SKCanvas.DrawCircle(
-            (float)this.SelectedPoint.X,
-            (float)this.SelectedPoint.Y,
+        SKCanvas.DrawCircle(
+            (float)SelectedPoint.X,
+            (float)SelectedPoint.Y,
             pointerCircleDiameter / 2, paintTouchPoint);
 
         // Draw another circle with picked color
@@ -290,8 +290,8 @@ namespace CPicker.Controls.CPicker
       }
 
       // Set selected color
-      this.PickedColor = touchPointColor.ToFormsColor();
-      this.PickedColorChanged?.Invoke(this, this.PickedColor);
+      PickedColor = touchPointColor.ToFormsColor();
+      PickedColorChanged?.Invoke(this, PickedColor);
     }
 
     private SKColor[] GetGradientOrder()
