@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:vm="clr-namespace:ColorPicker.ViewModels" 
-             xmlns:colorpicker="clr-namespace:ColorPicker.Controls.ColorPicker"
+             xmlns:colorpicker="clr-namespace:CPicker.Controls.CPicker"
              x:Class="ColorPicker.Views.SettingsPage"
              Title="{Binding Title}">
 
@@ -12,7 +12,7 @@
   
   <ContentPage.Content>
     <StackLayout>
-      <colorpicker:ColorPicker HeightRequest="400" PointerCircleDiameterUnits="0.5" PickedColor="{Binding OutlineColor}" />
+      <colorpicker:CPicker HeightRequest="400" WidthRequest="300" PointerCircleDiameterUnits="0.5" PickedColor="{Binding OutlineColor}" />
     </StackLayout>
   </ContentPage.Content>
 </ContentPage>

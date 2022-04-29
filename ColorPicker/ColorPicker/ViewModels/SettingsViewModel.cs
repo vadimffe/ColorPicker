@@ -15,7 +15,7 @@ namespace ColorPicker.ViewModels
     {
       this.Title = "Settings";
 
-      //this.OutlineColor = Color.Blue;  
+      this.OutlineColor = Color.FromHex("#FF40B87D");
     }
 
     //private Color outlineColor;
@@ -32,17 +32,18 @@ namespace ColorPicker.ViewModels
     //  }
     //}
 
+    public Color outlineColor;
     public Color OutlineColor
     {
       get
       {
-        Debug.WriteLine(Preferences.Get("OutlineColorHex", "#17805d"));
-        return Color.FromHex(Preferences.Get("OutlineColorHex", "#17805d"));
+        Debug.WriteLine(outlineColor.ToHex());
+        return outlineColor;
       }
       set
       {
-        Preferences.Set("OutlineColorHex", value.ToHex());
-        //Debug.WriteLine(value.ToHex());
+        outlineColor = value;
+        Debug.WriteLine(value.ToHex());
         this.OnPropertyChanged();
       }
     }
