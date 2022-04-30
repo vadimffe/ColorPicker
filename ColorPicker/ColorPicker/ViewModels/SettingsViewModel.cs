@@ -9,7 +9,7 @@ namespace ColorPicker.ViewModels
     {
       this.Title = "Settings";
 
-      this.Point = new Point(744, 251);
+      this.Point = new Point(1161, 70);
     }
 
     private Point point;

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using ColorPicker.Models;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Forms;
@@ -18,7 +17,7 @@ namespace ColorPicker.Controls
     /// </summary>
     public event EventHandler<Color> PickedColorChanged;
     private SKCanvas SKCanvas { get; set; }
-
+    private SKBitmap Bitmap { get; set; }
 
     public static readonly BindableProperty PickedColorProperty
       = BindableProperty.Create(
@@ -164,11 +163,11 @@ namespace ColorPicker.Controls
 
     public ColorPicker()
     {
-      EnableTouchEvents = true;
+      this.EnableTouchEvents = true;
 
-      Touch += (sender, e) =>
+      this.Touch += (sender, e) =>
       {
-        SKSize canvasSize = CanvasSize;
+        SKSize canvasSize = this.CanvasSize;
 
         // Check for each touch point XY position to be inside Canvas
         // Ignore any Touch event ocurred outside the Canvas region 
@@ -178,48 +177,29 @@ namespace ColorPicker.Controls
           //Debug.WriteLine(e.Location.X);
           //Debug.WriteLine(e.Location.Y);
 
-          SelectedPoint = new Point(e.Location.X, e.Location.Y);
+          this.SelectedPoint = new Point(e.Location.X, e.Location.Y);
           e.Handled = true;
 
           // update the Canvas as you wish
-          InvalidateSurface();
+          this.InvalidateSurface();
         }
       };
     }
 
-    //private void GetPixelCoordinatesAsync(SKBitmap bitmap)
-    //{
-    //  Task.Run(async () => await this.GetPixelCoordinates(bitmap));
-    //}
-
     private void GetPixelCoordinates(SKBitmap bitmap)
     {
-      //List<SKColor> colorList = new List<SKColor>();
-      IEnumerable<PixelCoordinate> pixelList = new List<PixelCoordinate>();
-
-      //for (int y = 0; y < bitmap.Height; y++)
-      //{
-      //  for (int x = 0; x < bitmap.Width; x++)
-      //  {
-      //    colorList.Add(bitmap.GetPixel(x, y));
-      //  }
-      //}
-
-      for (int row = 0; row < bitmap.Height - 1; row++)
+      for (int x = 0; x < bitmap.Width; x++)
       {
-        for (int col = 0; col < bitmap.Width - 1; col++)
+        for (int y = 0; y < bitmap.Height; y++)
         {
-          SKColor pixel = bitmap.GetPixel(col, row);
+          SKColor pixelColor = bitmap.GetPixel(x, y);
 
-          pixelList.Prepend(new PixelCoordinate
+          if (this.PickedColor.ToSKColor() == pixelColor 
+            && this.PickedColor.ToSKColor() != Color.FromHex("#00000000").ToSKColor() 
+            && this.PickedColor.ToSKColor() != Color.FromHex("#FFFFFFFF").ToSKColor())
           {
-            Color = pixel,
-            X = col,
-            Y = row
-          });
-
-          //imgOut.SetPixel(col, row, this.colorWhite);
-
+            Debug.WriteLine(String.Format("Color: {0} | Coordinate: {1} {2}", pixelColor, x, y));
+          }
         }
       }
     }
@@ -228,12 +208,12 @@ namespace ColorPicker.Controls
     {
       SKImageInfo skImageInfo = e.Info;
       SKSurface skSurface = e.Surface;
-      SKCanvas = skSurface.Canvas;
+      this.SKCanvas = skSurface.Canvas;
 
       int skCanvasWidth = skImageInfo.Width;
       int skCanvasHeight = skImageInfo.Height;
 
-      SKCanvas.Clear();
+      this.SKCanvas.Clear();
 
       // Draw gradient rainbow Color spectrum
       using (SKPaint paint = new SKPaint())
@@ -241,19 +221,19 @@ namespace ColorPicker.Controls
         paint.IsAntialias = true;
 
         System.Collections.Generic.List<SKColor> colors = new System.Collections.Generic.List<SKColor>();
-        ColorList.ForEach((color) => { colors.Add(Color.FromHex(color).ToSKColor()); });
+        this.ColorList.ForEach((color) => { colors.Add(Color.FromHex(color).ToSKColor()); });
 
         // create the gradient shader between Colors
         using (SKShader shader = SKShader.CreateLinearGradient(
             new SKPoint(0, 0),
-            ColorListDirection == ColorListDirection.Horizontal ?
+            this.ColorListDirection == ColorListDirection.Horizontal ?
                 new SKPoint(skCanvasWidth, 0) : new SKPoint(0, skCanvasHeight),
             colors.ToArray(),
             null,
             SKShaderTileMode.Clamp))
         {
           paint.Shader = shader;
-          SKCanvas.DrawPaint(paint);
+          this.SKCanvas.DrawPaint(paint);
         }
       }
 
@@ -268,14 +248,14 @@ namespace ColorPicker.Controls
         // create the gradient shader 
         using (SKShader shader = SKShader.CreateLinearGradient(
             new SKPoint(0, 0),
-            ColorListDirection == ColorListDirection.Horizontal ?
+            this.ColorListDirection == ColorListDirection.Horizontal ?
                 new SKPoint(0, skCanvasHeight) : new SKPoint(skCanvasWidth, 0),
             colors,
             null,
             SKShaderTileMode.Clamp))
         {
           paint.Shader = shader;
-          SKCanvas.DrawPaint(paint);
+          this.SKCanvas.DrawPaint(paint);
         }
       }
 
@@ -296,35 +276,35 @@ namespace ColorPicker.Controls
         skSurface.ReadPixels(skImageInfo,
             dstpixels,
             skImageInfo.RowBytes,
-            (int)SelectedPoint.X,
-            (int)SelectedPoint.Y);
+            (int)this.SelectedPoint.X,
+            (int)this.SelectedPoint.Y);
 
         // access the color
         touchPointColor = bitmap.GetPixel(0, 0);
 
-        //this.GetPixelCoordinates(bitmap);
+        this.GetPixelCoordinates(bitmap);
 
-        //bitmap.SetPixel(50,50, this.PickedColor.ToSKColor());
+        //bitmap.SetPixel(50, 50, this.PickedColor.ToSKColor());
       }
 
       // Painting the Touch point
       using (SKPaint paintTouchPoint = new SKPaint())
       {
         paintTouchPoint.Style = SKPaintStyle.Stroke;
-        paintTouchPoint.StrokeWidth = PointerStrokeWidth;
+        paintTouchPoint.StrokeWidth = this.PointerStrokeWidth;
         paintTouchPoint.Color = SKColors.White;
         paintTouchPoint.IsAntialias = true;
 
         int valueToCalcAgainst = skCanvasWidth > skCanvasHeight ? skCanvasWidth : skCanvasHeight;
 
-        double pointerCircleDiameterUnits = PointerDiameter; // 0.6 (Default)
+        double pointerCircleDiameterUnits = this.PointerDiameter; // 0.6 (Default)
         pointerCircleDiameterUnits = (float)pointerCircleDiameterUnits / 10f; //  calculate 1/10th of that value
         float pointerCircleDiameter = (float)(valueToCalcAgainst * pointerCircleDiameterUnits);
 
         // Outer circle of the Pointer (Ring)
-        SKCanvas.DrawCircle(
-            (float)SelectedPoint.X,
-            (float)SelectedPoint.Y,
+        this.SKCanvas.DrawCircle(
+            (float)this.SelectedPoint.X,
+            (float)this.SelectedPoint.Y,
             pointerCircleDiameter / 2, paintTouchPoint);
 
         // Draw another circle with picked color
@@ -332,20 +312,20 @@ namespace ColorPicker.Controls
       }
 
       // Set selected color
-      PickedColor = touchPointColor.ToFormsColor();
-      PickedColorChanged?.Invoke(this, PickedColor);
+      this.PickedColor = touchPointColor.ToFormsColor();
+      this.PickedColorChanged?.Invoke(this, this.PickedColor);
     }
 
     private SKColor[] GetGradientOrder()
     {
-      if (GradientColorStyle == GradientColorStyle.ColorsOnlyStyle)
+      if (this.GradientColorStyle == GradientColorStyle.ColorsOnlyStyle)
       {
         return new SKColor[]
         {
           SKColors.Transparent,
         };
       }
-      else if (GradientColorStyle == GradientColorStyle.ColorsToDarkStyle)
+      else if (this.GradientColorStyle == GradientColorStyle.ColorsToDarkStyle)
       {
         return new SKColor[]
         {
@@ -353,7 +333,7 @@ namespace ColorPicker.Controls
           SKColors.Black,
         };
       }
-      else if (GradientColorStyle == GradientColorStyle.DarkToColorsStyle)
+      else if (this.GradientColorStyle == GradientColorStyle.DarkToColorsStyle)
       {
         return new SKColor[]
         {
@@ -361,7 +341,7 @@ namespace ColorPicker.Controls
           SKColors.Transparent,
         };
       }
-      else if (GradientColorStyle == GradientColorStyle.ColorsToLightStyle)
+      else if (this.GradientColorStyle == GradientColorStyle.ColorsToLightStyle)
       {
         return new SKColor[]
         {
@@ -369,7 +349,7 @@ namespace ColorPicker.Controls
           SKColors.White,
         };
       }
-      else if (GradientColorStyle == GradientColorStyle.LightToColorsStyle)
+      else if (this.GradientColorStyle == GradientColorStyle.LightToColorsStyle)
       {
         return new SKColor[]
         {
@@ -377,7 +357,7 @@ namespace ColorPicker.Controls
           SKColors.Transparent,
         };
       }
-      else if (GradientColorStyle == GradientColorStyle.LightToColorsToDarkStyle)
+      else if (this.GradientColorStyle == GradientColorStyle.LightToColorsToDarkStyle)
       {
         return new SKColor[]
         {
@@ -386,7 +366,7 @@ namespace ColorPicker.Controls
           SKColors.Black,
         };
       }
-      else if (GradientColorStyle == GradientColorStyle.DarkToColorsToLightStyle)
+      else if (this.GradientColorStyle == GradientColorStyle.DarkToColorsToLightStyle)
       {
         return new SKColor[]
         {
