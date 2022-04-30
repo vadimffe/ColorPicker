@@ -1,5 +1,4 @@
-﻿using ColorPicker.Services;
-using ColorPicker.Views;
+﻿using ColorPicker.Views;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,7 +12,6 @@ namespace ColorPicker
     {
       InitializeComponent();
 
-      DependencyService.Register<MockDataStore>();
       MainPage = new AppShell();
     }
 

@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using ColorPicker.Models;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Forms;
@@ -184,6 +187,43 @@ namespace ColorPicker.Controls
       };
     }
 
+    //private void GetPixelCoordinatesAsync(SKBitmap bitmap)
+    //{
+    //  Task.Run(async () => await this.GetPixelCoordinates(bitmap));
+    //}
+
+    private void GetPixelCoordinates(SKBitmap bitmap)
+    {
+      //List<SKColor> colorList = new List<SKColor>();
+      IEnumerable<PixelCoordinate> pixelList = new List<PixelCoordinate>();
+
+      //for (int y = 0; y < bitmap.Height; y++)
+      //{
+      //  for (int x = 0; x < bitmap.Width; x++)
+      //  {
+      //    colorList.Add(bitmap.GetPixel(x, y));
+      //  }
+      //}
+
+      for (int row = 0; row < bitmap.Height - 1; row++)
+      {
+        for (int col = 0; col < bitmap.Width - 1; col++)
+        {
+          SKColor pixel = bitmap.GetPixel(col, row);
+
+          pixelList.Prepend(new PixelCoordinate
+          {
+            Color = pixel,
+            X = col,
+            Y = row
+          });
+
+          //imgOut.SetPixel(col, row, this.colorWhite);
+
+        }
+      }
+    }
+
     protected override void OnPaintSurface(SKPaintSurfaceEventArgs e)
     {
       SKImageInfo skImageInfo = e.Info;
@@ -261,6 +301,8 @@ namespace ColorPicker.Controls
 
         // access the color
         touchPointColor = bitmap.GetPixel(0, 0);
+
+        //this.GetPixelCoordinates(bitmap);
 
         //bitmap.SetPixel(50,50, this.PickedColor.ToSKColor());
       }
