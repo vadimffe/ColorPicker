@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:vm="clr-namespace:ColorPicker.ViewModels" 
-             xmlns:colorpicker="clr-namespace:ColorPicker.Controls"
+             xmlns:colorpicker="clr-namespace:ColorPicker.Controls" 
              x:Class="ColorPicker.Views.SettingsPage"
              Title="{Binding Title}">
 
@@ -12,13 +12,17 @@
   
   <ContentPage.Content>
     <StackLayout>
-      <colorpicker:ColorPicker HeightRequest="400" 
-                           WidthRequest="300" 
-                           PointerDiameter="0.3"
-                           PointerStrokeWidth="7"
-                           SelectedPoint="{Binding Point}" 
-                           PickedColor="{Binding OutlineColor}" />
+      <colorpicker:ColorPicker HeightRequest="50" 
+                               WidthRequest="50" 
+                               PointerDiameter="0.3"
+                               PointerStrokeWidth="7"
+                               SelectedPoint="{Binding Point}" 
+                               PickedColor="{Binding OutlineColor}"
+                               PickedColorData="{Binding PickedColorData}"/>
       <BoxView BackgroundColor="{Binding OutlineColor}"></BoxView>
+      <Label FontSize="20" TextColor="Black" HorizontalTextAlignment="Center" Text="{Binding OutlineColorHex}"></Label>
+      <Label FontSize="20" TextColor="Black" HorizontalTextAlignment="Center" Text="{Binding Coordinates}"></Label>
+      <Button Text="Open popup!" Command="{Binding PopupCommand}" />
     </StackLayout>
   </ContentPage.Content>
 </ContentPage>

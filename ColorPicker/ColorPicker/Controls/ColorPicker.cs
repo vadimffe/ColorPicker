@@ -37,6 +37,23 @@ namespace ColorPicker.Controls
     /// <summary>
     /// Get the current Picked Color
     /// </summary>
+    public string PickedColorData
+    {
+      get { return (string)GetValue(PickedColorDataProperty); }
+      set { SetValue(PickedColorDataProperty, value); }
+    }
+
+    public static readonly BindableProperty PickedColorDataProperty
+      = BindableProperty.Create(
+            propertyName: nameof(PointerStrokeWidth),
+            returnType: typeof(string),
+            declaringType: typeof(ColorPicker),
+            defaultBindingMode: BindingMode.TwoWay,
+            defaultValue: string.Empty);
+
+    /// <summary>
+    /// Get the current Picked Color
+    /// </summary>
     public int PointerStrokeWidth
     {
       get { return (int)GetValue(PointerStrokeWidthProperty); }
@@ -178,6 +195,7 @@ namespace ColorPicker.Controls
           //Debug.WriteLine(e.Location.Y);
 
           this.SelectedPoint = new Point(e.Location.X, e.Location.Y);
+          this.PickedColorData = string.Format("{0};{1};{2}", this.PickedColor.ToHex(), e.Location.X, e.Location.Y);
           e.Handled = true;
 
           // update the Canvas as you wish
@@ -188,6 +206,11 @@ namespace ColorPicker.Controls
 
     private void GetPixelCoordinates(SKBitmap bitmap)
     {
+      if (bitmap == null)
+      {
+        return;
+      }
+
       for (int x = 0; x < bitmap.Width; x++)
       {
         for (int y = 0; y < bitmap.Height; y++)
@@ -198,6 +221,7 @@ namespace ColorPicker.Controls
             && this.PickedColor.ToSKColor() != Color.FromHex("#00000000").ToSKColor() 
             && this.PickedColor.ToSKColor() != Color.FromHex("#FFFFFFFF").ToSKColor())
           {
+            //this.SelectedPoint = new Point(x, y);
             Debug.WriteLine(String.Format("Color: {0} | Coordinate: {1} {2}", pixelColor, x, y));
           }
         }
@@ -282,7 +306,7 @@ namespace ColorPicker.Controls
         // access the color
         touchPointColor = bitmap.GetPixel(0, 0);
 
-        this.GetPixelCoordinates(bitmap);
+        //this.GetPixelCoordinates(bitmap);
 
         //bitmap.SetPixel(50, 50, this.PickedColor.ToSKColor());
       }

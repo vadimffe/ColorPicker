@@ -15,15 +15,24 @@ namespace ColorPicker.ViewModels
 
     private void UpdateColor()
     {
-      this.GaugeOutlineColor = Color.FromHex(Preferences.Get("OutlineColorHex", "#17805d"));
+      string pickedColorData = Preferences.Get("OutlineColorData", "");
+      string[] colorData = pickedColorData.Split(';');
+
+      this.GaugeOutlineColor = Color.FromHex(colorData[0]);
     }
 
     public Color GaugeOutlineColor
     {
-      get => Color.FromHex(Preferences.Get("OutlineColorHex", "#17805d"));
+      get
+      {
+        string pickedColorData = Preferences.Get("OutlineColorData", "");
+        string[] colorData = pickedColorData.Split(';');
+
+        return Color.FromHex(colorData[0]);
+      }
       set
       {
-        Preferences.Set("OutlineColorHex", value.ToHex());
+        Preferences.Set("OutlineColorData", value.ToHex());
         this.OnPropertyChanged();
       }
     }
