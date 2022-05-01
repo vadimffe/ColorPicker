@@ -22,7 +22,8 @@
       <BoxView BackgroundColor="{Binding OutlineColor}"></BoxView>
       <Label FontSize="20" TextColor="Black" HorizontalTextAlignment="Center" Text="{Binding OutlineColorHex}"></Label>
       <Label FontSize="20" TextColor="Black" HorizontalTextAlignment="Center" Text="{Binding Coordinates}"></Label>
-      <Button Text="Open popup!" Command="{Binding PopupCommand}" />
+      <Button Text="Open rainbow picker!" Command="{Binding PopupCommand}" />
+      <Button Text="Open circle picker!" Command="{Binding CirclePickerCommand}" />
     </StackLayout>
   </ContentPage.Content>
 </ContentPage>

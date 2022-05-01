@@ -19,6 +19,12 @@ namespace ColorPicker.ViewModels
       //this.PickedColorData = Preferences.Get("OutlineColorData", "");
 
       this.PopupCommand = new Command(() => this.OpenPopup());
+      this.CirclePickerCommand = new Command(() => this.OpenCirclePopup());
+    }
+
+    private void OpenCirclePopup()
+    {
+      Shell.Current.ShowPopup(new RoundPickerPopup());
     }
 
     private void OpenPopup()
@@ -27,6 +33,8 @@ namespace ColorPicker.ViewModels
     }
 
     public ICommand PopupCommand { get; }
+
+    public ICommand CirclePickerCommand { get; }
 
     private Point point;
     public Point Point

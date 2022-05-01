@@ -1,28 +1,22 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <xct:Popup
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
     xmlns:controls="clr-namespace:ColorPicker.Controls" 
     xmlns:viewmodels="clr-namespace:ColorPicker.ViewModels" 
-    x:DataType="viewmodels:CustomPopupViewModel"
+    x:DataType="viewmodels:RoundPickerViewModel"
     IsLightDismissEnabled="False"
     Size="350, 420"
-    x:Class="ColorPicker.Controls.CustomPopup">
+    x:Class="ColorPicker.Controls.RoundPickerPopup">
 
   <xct:Popup.BindingContext>
-    <viewmodels:CustomPopupViewModel />
+    <viewmodels:RoundPickerViewModel />
   </xct:Popup.BindingContext>
 
   <StackLayout>
     <StackLayout Orientation="Horizontal" VerticalOptions="Start">
-      <controls:ColorPicker HeightRequest="350" 
-                          WidthRequest="350"
-                          PointerDiameter="0.6"
-                          PointerStrokeWidth="4"
-                          SelectedPoint="{Binding Point}" 
-                          PickedColor="{Binding OutlineColor}"
-                          PickedColorData="{Binding PickedColorData}"/>
+      <controls:CirclePicker HeightRequest="350" WidthRequest="350"/>
     </StackLayout>
 
     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="End">
