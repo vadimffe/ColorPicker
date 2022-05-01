@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using ColorPicker.Models;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Forms;
@@ -17,7 +18,8 @@ namespace ColorPicker.Controls
     /// </summary>
     public event EventHandler<Color> PickedColorChanged;
     private SKCanvas SKCanvas { get; set; }
-    private SKBitmap Bitmap { get; set; }
+    private SKImageInfo SKImageInfo { get; set; }
+    private Point SelectedPoint { get; set; }
 
     public static readonly BindableProperty PickedColorProperty
       = BindableProperty.Create(
@@ -37,19 +39,19 @@ namespace ColorPicker.Controls
     /// <summary>
     /// Get the current Picked Color
     /// </summary>
-    public string PickedColorData
+    public ColorPickerModel PickedColorData
     {
-      get { return (string)GetValue(PickedColorDataProperty); }
+      get { return (ColorPickerModel)GetValue(PickedColorDataProperty); }
       set { SetValue(PickedColorDataProperty, value); }
     }
 
     public static readonly BindableProperty PickedColorDataProperty
       = BindableProperty.Create(
-            propertyName: nameof(PointerStrokeWidth),
-            returnType: typeof(string),
+            propertyName: nameof(PickedColorData),
+            returnType: typeof(ColorPickerModel),
             declaringType: typeof(ColorPicker),
             defaultBindingMode: BindingMode.TwoWay,
-            defaultValue: string.Empty);
+            defaultValue: new ColorPickerModel { ColorHex = "#FFFFFFF", ColorPoint = new Point { X = 50 / 2, Y = 50 } });
 
     /// <summary>
     /// Get the current Picked Color
@@ -66,29 +68,6 @@ namespace ColorPicker.Controls
             returnType: typeof(int),
             declaringType: typeof(ColorPicker),
             defaultValue: 15);
-
-    /// <summary>
-    /// Get the current Picked Color
-    /// </summary>
-    public Point SelectedPoint
-    {
-      get { return (Point)GetValue(SelectedPointProperty); }
-      set { SetValue(SelectedPointProperty, value); }
-    }
-
-    public static readonly BindableProperty SelectedPointProperty
-      = BindableProperty.Create(
-            propertyName: nameof(SelectedPoint),
-            returnType: typeof(Point),
-            declaringType: typeof(ColorPicker),
-            defaultBindingMode: BindingMode.TwoWay);
-
-    //private static void OnPointChanged(BindableObject bindable, object oldValue, object newValue)
-    //{
-    //  CPicker control = (CPicker)bindable;
-    //  Point newPoint = (Point)newValue;
-    //  control.SelectedPoint = new Point(newPoint.X, newPoint.Y);
-    //}
 
     /// <summary>
     /// Get the current Picked Color
@@ -180,6 +159,16 @@ namespace ColorPicker.Controls
 
     public ColorPicker()
     {
+      this.PickedColorData = new ColorPickerModel 
+      { 
+        ColorHex = "#FFFFFFF", 
+        ColorPoint = new Point 
+        { 
+          X = this.SKImageInfo.Width / 2, 
+          Y = this.SKImageInfo.Height / 2, 
+        }, 
+      };
+
       this.EnableTouchEvents = true;
 
       this.Touch += (sender, e) =>
@@ -195,7 +184,13 @@ namespace ColorPicker.Controls
           //Debug.WriteLine(e.Location.Y);
 
           this.SelectedPoint = new Point(e.Location.X, e.Location.Y);
-          this.PickedColorData = string.Format("{0};{1};{2}", this.PickedColor.ToHex(), e.Location.X, e.Location.Y);
+
+          this.PickedColorData = new ColorPickerModel
+          {
+            ColorHex = this.PickedColor.ToHex(),
+            ColorPoint = new Point { X = e.Location.X, Y = e.Location.Y },
+          };
+
           e.Handled = true;
 
           // update the Canvas as you wish
@@ -230,12 +225,12 @@ namespace ColorPicker.Controls
 
     protected override void OnPaintSurface(SKPaintSurfaceEventArgs e)
     {
-      SKImageInfo skImageInfo = e.Info;
+      this.SKImageInfo = e.Info;
       SKSurface skSurface = e.Surface;
       this.SKCanvas = skSurface.Canvas;
 
-      int skCanvasWidth = skImageInfo.Width;
-      int skCanvasHeight = skImageInfo.Height;
+      int skCanvasWidth = this.SKImageInfo.Width;
+      int skCanvasHeight = this.SKImageInfo.Height;
 
       this.SKCanvas.Clear();
 
@@ -291,15 +286,15 @@ namespace ColorPicker.Controls
       // Efficient and fast
       // https://forums.xamarin.com/discussion/92899/read-a-pixel-info-from-a-canvas
       // create the 1x1 bitmap (auto allocates the pixel buffer)
-      using (SKBitmap bitmap = new SKBitmap(skImageInfo))
+      using (SKBitmap bitmap = new SKBitmap(this.SKImageInfo))
       {
         // get the pixel buffer for the bitmap
         IntPtr dstpixels = bitmap.GetPixels();
 
         // read the surface into the bitmap
-        skSurface.ReadPixels(skImageInfo,
+        skSurface.ReadPixels(this.SKImageInfo,
             dstpixels,
-            skImageInfo.RowBytes,
+            this.SKImageInfo.RowBytes,
             (int)this.SelectedPoint.X,
             (int)this.SelectedPoint.Y);
 

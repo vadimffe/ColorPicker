@@ -1,4 +1,5 @@
 ﻿using ColorPicker.Controls;
+using ColorPicker.Models;
 using System;
 using System.Diagnostics;
 using System.Windows.Input;
@@ -36,20 +37,6 @@ namespace ColorPicker.ViewModels
 
     public ICommand CirclePickerCommand { get; }
 
-    private Point point;
-    public Point Point
-    {
-      get
-      {
-        return point;
-      }
-      set
-      {
-        point = value;
-        Debug.WriteLine(string.Format("X: {0} | Y: {1}", value.X, value.Y));
-        this.OnPropertyChanged();
-      }
-    }
 
     private Color outlineColor;
     public Color OutlineColor
@@ -97,25 +84,43 @@ namespace ColorPicker.ViewModels
       }
     }
 
-    private string pickedColorData;
-    public string PickedColorData
+    private ListViewColorModel selectedColor;
+    public ListViewColorModel SelectedColor
     {
       get
       {
-        Preferences.Get("OutlineColorData", "");
+        return selectedColor;
+      }
+      set
+      {
+        selectedColor = value;
+        Debug.WriteLine(value.Color);
+        this.OnPropertyChanged();
+      }
+    }
+
+    private ColorPickerModel pickedColorData;
+    public ColorPickerModel PickedColorData
+    {
+      get
+      {
+        //Preferences.Get("OutlineColorData", string.Format("{0};{1};{2}", "#FFFFFF", 50, 50));
         return pickedColorData;
       }
       set
       {
-        Preferences.Set("OutlineColorData", value);
-        pickedColorData = value;
         if(value != null)
         {
-          string[] colorData = value.Split(';');
-          this.Point = new Point(Convert.ToDouble(colorData[1]), Convert.ToDouble(colorData[2]));
-          this.OutlineColorHex = colorData[0];
-          this.Coordinates = string.Format("X: {0} | Y: {1}", colorData[1], colorData[2]);
+          Preferences.Set("OutlineColorData", string.Format("{0};{1};{2}", value.ColorHex, value.ColorPoint.X, value.ColorPoint.Y));
+          pickedColorData = value;
+
+          if (value != null)
+          {
+            this.OutlineColorHex = value.ColorHex;
+            this.Coordinates = string.Format("X: {0} | Y: {1}", value.ColorPoint.X, value.ColorPoint.Y);
+          }
         }
+
         this.OnPropertyChanged();
       }
     }

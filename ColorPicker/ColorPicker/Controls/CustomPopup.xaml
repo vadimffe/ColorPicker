@@ -20,7 +20,6 @@
                           WidthRequest="350"
                           PointerDiameter="0.6"
                           PointerStrokeWidth="4"
-                          SelectedPoint="{Binding Point}" 
                           PickedColor="{Binding OutlineColor}"
                           PickedColorData="{Binding PickedColorData}"/>
     </StackLayout>

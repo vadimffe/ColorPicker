@@ -2,7 +2,7 @@
 using SkiaSharp;
 using Xamarin.Forms;
 
-namespace ColorPicker.Controls
+namespace ColorPicker.Models
 {
   public class ColorModel
   {
@@ -20,8 +20,8 @@ namespace ColorPicker.Controls
     public bool IsTouched(SKPoint pt)
     {
 
-      return (Math.Pow(pt.X - Position.X, 2) / Math.Pow(Radius, 2) +
-              Math.Pow(pt.Y - Position.Y, 2) / Math.Pow(Radius, 2)) < 1;
+      return Math.Pow(pt.X - Position.X, 2) / Math.Pow(Radius, 2) +
+              Math.Pow(pt.Y - Position.Y, 2) / Math.Pow(Radius, 2) < 1;
     }
   }
 }

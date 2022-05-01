@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ColorPicker.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
@@ -13,7 +14,7 @@ namespace ColorPicker.ViewModels
     {
       this.AcceptPopupCommand = new Command(() => this.AcceptPopup());
 
-      this.Point = new Point(250, 44);
+      //this.Point = new Point(250, 44);
     }
 
     private void AcceptPopup()
@@ -23,19 +24,6 @@ namespace ColorPicker.ViewModels
 
     public ICommand AcceptPopupCommand { get; }
 
-    private Point point;
-    public Point Point
-    {
-      get
-      {
-        return point;
-      }
-      set
-      {
-        point = value;
-        this.OnPropertyChanged();
-      }
-    }
 
     private Color outlineColor;
     public Color OutlineColor
@@ -52,18 +40,22 @@ namespace ColorPicker.ViewModels
       }
     }
 
-    private string pickedColorData;
-    public string PickedColorData
+    private ColorPickerModel pickedColorData;
+    public ColorPickerModel PickedColorData
     {
       get
       {
-        Preferences.Get("OutlineColorData", "");
+        //Preferences.Get("OutlineColorData", string.Format("{0};{1};{2}", "#FFFFFF", 50, 50));
         return pickedColorData;
       }
       set
       {
-        Preferences.Set("OutlineColorData", value);
-        pickedColorData = value;
+        if (value != null)
+        {
+          Preferences.Set("OutlineColorData", string.Format("{0};{1};{2}", value.ColorHex, value.ColorPoint.X, value.ColorPoint.Y));
+          pickedColorData = value;
+        }
+
         this.OnPropertyChanged();
       }
     }

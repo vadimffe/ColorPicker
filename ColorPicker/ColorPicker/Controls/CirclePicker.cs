@@ -1,4 +1,5 @@
-﻿using SkiaSharp;
+﻿using ColorPicker.Models;
+using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using System;
 using System.Collections.Generic;
@@ -63,7 +64,7 @@ namespace ColorPicker.Controls
     {
       //this.ColorPicks = new List<ColorModel>();
 
-      //for (int i = 0; i < 30; i++)
+      //for (int i = 0; i < 25; i++)
       //{
       //  this.ColorPicks.Add(new ColorModel(i, String.Format("#{0:X6}", i * 1000000)));
       //}
@@ -98,12 +99,6 @@ namespace ColorPicker.Controls
             new ColorModel(23, "#4cb6ac"),
             new ColorModel(24, "#307c32"),
             new ColorModel(25, "#43a047"),
-
-            new ColorModel(26, "#64dd16"),
-            new ColorModel(27, "#222222"),
-            new ColorModel(28, "#5f7c8c"),
-            new ColorModel(29, "#b1bec6"),
-            new ColorModel(30, "#465a65"),
         };
     }
 
