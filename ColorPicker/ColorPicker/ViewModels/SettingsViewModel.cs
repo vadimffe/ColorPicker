@@ -30,13 +30,13 @@ namespace ColorPicker.ViewModels
     private ObservableCollection<CollectionViewColorModel> InitializeColors()
     {
       return new ObservableCollection<CollectionViewColorModel> {
-          new CollectionViewColorModel{ Id = 1, Color = "#25c5db" },
-          new CollectionViewColorModel{ Id = 2, Color = "#0098a6" },
-          new CollectionViewColorModel{ Id = 3, Color = "#0e47a1" },
-          new CollectionViewColorModel{ Id = 4, Color = "#1665c1" },
-          new CollectionViewColorModel{ Id = 5, Color = "#039be6" },
+          new CollectionViewColorModel{ Id = 1, Color = "#ff1d58" },
+          new CollectionViewColorModel{ Id = 2, Color = "#f75990" },
+          new CollectionViewColorModel{ Id = 3, Color = "#fff685" },
+          new CollectionViewColorModel{ Id = 4, Color = "#00DDFF" },
+          new CollectionViewColorModel{ Id = 5, Color = "#0049B7" },
 
-          new CollectionViewColorModel{ Id = 6, Color = "#64b5f6" },
+          new CollectionViewColorModel{ Id = 6, Color = "#76a84f" },
           new CollectionViewColorModel{ Id = 7, Color = "#ff7000" },
           new CollectionViewColorModel{ Id = 8, Color = "#ff9f00" },
           new CollectionViewColorModel{ Id = 9, Color = "#ffb200" },
