@@ -23,7 +23,7 @@
 
       <Label FontSize="20" TextColor="Black" Text="Collectionview selection:"></Label>
 
-      <colorpicker:FixedColorPicker HeightRequest="40" SelectedColor="{Binding SelectedColor}"/>
+      <colorpicker:FixedColorPicker HeightRequest="40" SelectedColor="{Binding SelectedColor, Mode=TwoWay}" Colors="{Binding ColorCollection}"/>
 
     </StackLayout>
   </ContentPage.Content>

@@ -20,7 +20,14 @@ namespace ColorPicker.Controls
         typeof(object),
         typeof(FixedColorPicker),
         new CollectionViewColorModel(),
-        BindingMode.TwoWay);
+        BindingMode.TwoWay,
+        propertyChanged: OnSelectedColorChanged);
+
+    private static void OnSelectedColorChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+      var control = bindable as FixedColorPicker;
+      control.collectionView.SelectedItem = newValue;
+    }
 
     public object SelectedColor
     {
@@ -34,7 +41,14 @@ namespace ColorPicker.Controls
         typeof(ObservableCollection<CollectionViewColorModel>),
         typeof(FixedColorPicker),
         new ObservableCollection<CollectionViewColorModel>(),
-        BindingMode.TwoWay);
+        BindingMode.TwoWay,
+        propertyChanged: OnColorCollectionChanged);
+
+    private static void OnColorCollectionChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+      var control = bindable as FixedColorPicker;
+      control.collectionView.ItemsSource = control.Colors;
+    }
 
     public ObservableCollection<CollectionViewColorModel> Colors
     {
@@ -46,28 +60,7 @@ namespace ColorPicker.Controls
     {
       this.InitializeComponent();
 
-      this.InitializeColors();
-
       this.collectionView.SelectionChanged += this.OnCollectionViewSelectionChanged;
-
-      this.collectionView.ItemsSource = this.Colors;
-    }
-
-    private void InitializeColors()
-    {
-      this.Colors = new ObservableCollection<CollectionViewColorModel> {
-          new CollectionViewColorModel{ Id = 1, Color = "#25c5db" },
-          new CollectionViewColorModel{ Id = 2, Color = "#0098a6" },
-          new CollectionViewColorModel{ Id = 3, Color = "#0e47a1" },
-          new CollectionViewColorModel{ Id = 4, Color = "#1665c1" },
-          new CollectionViewColorModel{ Id = 5, Color = "#039be6" },
-
-          new CollectionViewColorModel{ Id = 6, Color = "#64b5f6" },
-          new CollectionViewColorModel{ Id = 7, Color = "#ff7000" },
-          new CollectionViewColorModel{ Id = 8, Color = "#ff9f00" },
-          new CollectionViewColorModel{ Id = 9, Color = "#ffb200" },
-          new CollectionViewColorModel{ Id = 10, Color = "#cf9702" },
-        };
     }
 
     private void OnCollectionViewSelectionChanged(object sender, SelectionChangedEventArgs e)
