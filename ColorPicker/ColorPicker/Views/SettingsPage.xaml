@@ -23,34 +23,7 @@
 
       <Label FontSize="20" TextColor="Black" Text="Collectionview selection:"></Label>
 
-      <colorpicker:CollectionViewColorPicker SelectedItem="{Binding SelectedColor}" HeightRequest="40" SelectionMode="Single">
-        <CollectionView.ItemsLayout>
-          <LinearItemsLayout Orientation="Horizontal" ItemSpacing="4" />
-        </CollectionView.ItemsLayout>
-        <CollectionView.ItemTemplate>
-          <DataTemplate>
-            <StackLayout>
-              <!--<VisualStateManager.VisualStateGroups>
-              <VisualStateGroup Name="CommonStates">
-                <VisualState Name="Selected">
-                  <VisualState.Setters>
-                    <Setter Property="BackgroundColor" Value="Black" />
-                  </VisualState.Setters>
-                </VisualState>
-                  <VisualState Name="UnSelected">
-                    <VisualState.Setters>
-                      <Setter Property="BackgroundColor" Value="White" />
-                    </VisualState.Setters>
-                  </VisualState>
-                </VisualStateGroup>
-              </VisualStateManager.VisualStateGroups>-->
-              <BoxView CornerRadius="20" Color="{Binding Color}" />
-            </StackLayout>
-          </DataTemplate>
-        </CollectionView.ItemTemplate>
-      </colorpicker:CollectionViewColorPicker>
-
-      <colorpicker:FixedColorPicker HeightRequest="40" SelectedColor="{Binding SelectedColor}" Colors="{Binding ColorCollection}"/>
+      <colorpicker:FixedColorPicker HeightRequest="40" SelectedColor="{Binding SelectedColor}"/>
 
     </StackLayout>
   </ContentPage.Content>

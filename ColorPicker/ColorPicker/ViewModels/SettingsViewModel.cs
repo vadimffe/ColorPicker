@@ -23,28 +23,26 @@ namespace ColorPicker.ViewModels
 
       this.PopupCommand = new Command(() => this.OpenPopup());
       this.CirclePickerCommand = new Command(() => this.OpenCirclePopup());
-
-      //this.SelectedColor = this.ColorCollection.Where(w => w.Id == 1).FirstOrDefault();
     }
 
-    private ObservableCollection<CollectionViewColorModel> InitializeColors()
-    {
-      return new ObservableCollection<CollectionViewColorModel> {
-          new CollectionViewColorModel{ Id = 1, Color = "#25c5db" },
-          new CollectionViewColorModel{ Id = 2, Color = "#0098a6" },
-          new CollectionViewColorModel{ Id = 3, Color = "#0e47a1" },
-          new CollectionViewColorModel{ Id = 4, Color = "#1665c1" },
-          new CollectionViewColorModel{ Id = 5, Color = "#039be6" },
+    //private ObservableCollection<CollectionViewColorModel> InitializeColors()
+    //{
+    //  return new ObservableCollection<CollectionViewColorModel> {
+    //      new CollectionViewColorModel{ Id = 1, Color = "#25c5db" },
+    //      new CollectionViewColorModel{ Id = 2, Color = "#0098a6" },
+    //      new CollectionViewColorModel{ Id = 3, Color = "#0e47a1" },
+    //      new CollectionViewColorModel{ Id = 4, Color = "#1665c1" },
+    //      new CollectionViewColorModel{ Id = 5, Color = "#039be6" },
 
-          new CollectionViewColorModel{ Id = 6, Color = "#64b5f6" },
-          new CollectionViewColorModel{ Id = 7, Color = "#ff7000" },
-          new CollectionViewColorModel{ Id = 8, Color = "#ff9f00" },
-          new CollectionViewColorModel{ Id = 9, Color = "#ffb200" },
-          new CollectionViewColorModel{ Id = 10, Color = "#cf9702" },
-        };
+    //      new CollectionViewColorModel{ Id = 6, Color = "#64b5f6" },
+    //      new CollectionViewColorModel{ Id = 7, Color = "#ff7000" },
+    //      new CollectionViewColorModel{ Id = 8, Color = "#ff9f00" },
+    //      new CollectionViewColorModel{ Id = 9, Color = "#ffb200" },
+    //      new CollectionViewColorModel{ Id = 10, Color = "#cf9702" },
+    //    };
 
-      //this.ItemsSource = this.Colors;
-    }
+    //  //this.ItemsSource = this.Colors;
+    //}
 
     private void OpenCirclePopup()
     {
@@ -107,19 +105,19 @@ namespace ColorPicker.ViewModels
       }
     }
 
-    private ObservableCollection<CollectionViewColorModel> colorCollection;
-    public ObservableCollection<CollectionViewColorModel> ColorCollection
-    {
-      get
-      {
-        return colorCollection;
-      }
-      set
-      {
-        colorCollection = value;
-        this.OnPropertyChanged();
-      }
-    }
+    //private ObservableCollection<CollectionViewColorModel> colorCollection;
+    //public ObservableCollection<CollectionViewColorModel> ColorCollection
+    //{
+    //  get
+    //  {
+    //    return colorCollection;
+    //  }
+    //  set
+    //  {
+    //    colorCollection = value;
+    //    this.OnPropertyChanged();
+    //  }
+    //}
 
     private CollectionViewColorModel selectedColor;
     public CollectionViewColorModel SelectedColor

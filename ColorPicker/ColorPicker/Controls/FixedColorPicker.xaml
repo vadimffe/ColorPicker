@@ -8,10 +8,16 @@
       <Setter Property="VisualStateManager.VisualStateGroups">
         <VisualStateGroupList>
           <VisualStateGroup x:Name="CommonStates">
-            <VisualState x:Name="Normal" />
+            <VisualState x:Name="Normal" >
+              <VisualState.Setters>
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter TargetName="CheckBoxLabel" Property="Label.IsVisible" Value="False"/>
+              </VisualState.Setters>
+            </VisualState>
             <VisualState x:Name="Selected">
               <VisualState.Setters>
-                <Setter Property="BackgroundColor" Value="LightSkyBlue" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter TargetName="CheckBoxLabel" Property="Label.IsVisible" Value="True"/>
               </VisualState.Setters>
             </VisualState>
           </VisualStateGroup>
@@ -27,7 +33,9 @@
     <CollectionView.ItemTemplate>
       <DataTemplate>
         <StackLayout>
-          <BoxView CornerRadius="20" Color="{Binding Color}" />
+          <Frame BackgroundColor="{Binding Color}" Padding="5" WidthRequest="30" HeightRequest="40" CornerRadius="20">
+            <Label x:Name="CheckBoxLabel" Text="✔" HorizontalTextAlignment="Center"></Label>
+          </Frame>
         </StackLayout>
       </DataTemplate>
     </CollectionView.ItemTemplate>
