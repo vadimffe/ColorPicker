@@ -8,7 +8,7 @@
     x:DataType="viewmodels:RoundPickerViewModel"
     IsLightDismissEnabled="False"
     Size="350, 420"
-    x:Class="ColorPicker.Controls.RoundPickerPopup">
+    x:Class="ColorPicker.Dialogs.RoundPickerPopup">
 
   <xct:Popup.BindingContext>
     <viewmodels:RoundPickerViewModel />

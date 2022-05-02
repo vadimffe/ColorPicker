@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ColorPicker.Controls.FixedColorPicker">
+
+  <ContentView.Resources>
+    <Style TargetType="StackLayout">
+      <Setter Property="VisualStateManager.VisualStateGroups">
+        <VisualStateGroupList>
+          <VisualStateGroup x:Name="CommonStates">
+            <VisualState x:Name="Normal" />
+            <VisualState x:Name="Selected">
+              <VisualState.Setters>
+                <Setter Property="BackgroundColor" Value="LightSkyBlue" />
+              </VisualState.Setters>
+            </VisualState>
+          </VisualStateGroup>
+        </VisualStateGroupList>
+      </Setter>
+    </Style>
+  </ContentView.Resources>
+
+  <CollectionView SelectionMode="Single" x:Name="collectionView">
+    <CollectionView.ItemsLayout>
+      <LinearItemsLayout Orientation="Horizontal" ItemSpacing="4" />
+    </CollectionView.ItemsLayout>
+    <CollectionView.ItemTemplate>
+      <DataTemplate>
+        <StackLayout>
+          <BoxView CornerRadius="20" Color="{Binding Color}" />
+        </StackLayout>
+      </DataTemplate>
+    </CollectionView.ItemTemplate>
+  </CollectionView>
+
+</ContentView>

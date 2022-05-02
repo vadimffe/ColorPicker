@@ -27,11 +27,10 @@
         <CollectionView.ItemsLayout>
           <LinearItemsLayout Orientation="Horizontal" ItemSpacing="4" />
         </CollectionView.ItemsLayout>
-        
         <CollectionView.ItemTemplate>
           <DataTemplate>
             <StackLayout>
-            <!--<VisualStateManager.VisualStateGroups>
+              <!--<VisualStateManager.VisualStateGroups>
               <VisualStateGroup Name="CommonStates">
                 <VisualState Name="Selected">
                   <VisualState.Setters>
@@ -44,12 +43,14 @@
                     </VisualState.Setters>
                   </VisualState>
                 </VisualStateGroup>
-            </VisualStateManager.VisualStateGroups>-->
-            <BoxView CornerRadius="20" Color="{Binding Color}" />
+              </VisualStateManager.VisualStateGroups>-->
+              <BoxView CornerRadius="20" Color="{Binding Color}" />
             </StackLayout>
           </DataTemplate>
         </CollectionView.ItemTemplate>
       </colorpicker:CollectionViewColorPicker>
+
+      <colorpicker:FixedColorPicker HeightRequest="40" SelectedColor="{Binding SelectedColor}" Colors="{Binding ColorCollection}"/>
 
     </StackLayout>
   </ContentPage.Content>

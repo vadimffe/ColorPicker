@@ -8,7 +8,7 @@
     x:DataType="viewmodels:CustomPopupViewModel"
     IsLightDismissEnabled="False"
     Size="350, 420"
-    x:Class="ColorPicker.Controls.CustomPopup">
+    x:Class="ColorPicker.Dialogs.CustomPopup">
 
   <xct:Popup.BindingContext>
     <viewmodels:CustomPopupViewModel />

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ColorPicker.Models
 {
-  public class ListViewColorModel
+  public class CollectionViewColorModel
   {
     public int Id { get; set; }
     public string Color { get; set; }

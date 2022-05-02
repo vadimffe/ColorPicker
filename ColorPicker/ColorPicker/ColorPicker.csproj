@@ -21,10 +21,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Controls\CustomPopup.xaml">
+    <EmbeddedResource Update="Controls\FixedColorPicker.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Controls\RoundPickerPopup.xaml">
+    <EmbeddedResource Update="Dialogs\CustomPopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Dialogs\RoundPickerPopup.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\SettingsPage.xaml">

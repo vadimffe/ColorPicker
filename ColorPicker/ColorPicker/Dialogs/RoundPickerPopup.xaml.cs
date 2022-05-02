@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
-namespace ColorPicker.Controls
+namespace ColorPicker.Dialogs
 {
-  public partial class CustomPopup : Popup
+  [XamlCompilation(XamlCompilationOptions.Compile)]
+  public partial class RoundPickerPopup : Popup
   {
-    public CustomPopup()
+    public RoundPickerPopup()
     {
       InitializeComponent();
     }

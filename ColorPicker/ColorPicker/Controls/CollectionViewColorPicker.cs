@@ -11,13 +11,13 @@ namespace ColorPicker.Controls
     public static readonly BindableProperty ColorsProperty =
       BindableProperty.Create(
         nameof(Colors),
-        typeof(List<ListViewColorModel>),
+        typeof(List<CollectionViewColorModel>),
         typeof(CollectionViewColorPicker),
-        new List<ListViewColorModel>());
+        new List<CollectionViewColorModel>());
 
-    public List<ListViewColorModel> Colors
+    public List<CollectionViewColorModel> Colors
     {
-      get { return (List<ListViewColorModel>)GetValue(ColorsProperty); }
+      get { return (List<CollectionViewColorModel>)GetValue(ColorsProperty); }
       set { SetValue(ColorsProperty, value); }
     }
 
@@ -32,18 +32,18 @@ namespace ColorPicker.Controls
 
     private void InitializeColors()
     {
-      this.Colors = new List<ListViewColorModel> {
-          new ListViewColorModel{ Id = 1, Color = "#25c5db" },
-          new ListViewColorModel{ Id = 2, Color = "#0098a6" },
-          new ListViewColorModel{ Id = 3, Color = "#0e47a1" },
-          new ListViewColorModel{ Id = 4, Color = "#1665c1" },
-          new ListViewColorModel{ Id = 5, Color = "#039be6" },
+      this.Colors = new List<CollectionViewColorModel> {
+          new CollectionViewColorModel{ Id = 1, Color = "#25c5db" },
+          new CollectionViewColorModel{ Id = 2, Color = "#0098a6" },
+          new CollectionViewColorModel{ Id = 3, Color = "#0e47a1" },
+          new CollectionViewColorModel{ Id = 4, Color = "#1665c1" },
+          new CollectionViewColorModel{ Id = 5, Color = "#039be6" },
 
-          new ListViewColorModel{ Id = 6, Color = "#64b5f6" },
-          new ListViewColorModel{ Id = 7, Color = "#ff7000" },
-          new ListViewColorModel{ Id = 8, Color = "#ff9f00" },
-          new ListViewColorModel{ Id = 9, Color = "#ffb200" },
-          new ListViewColorModel{ Id = 10, Color = "#cf9702" },
+          new CollectionViewColorModel{ Id = 6, Color = "#64b5f6" },
+          new CollectionViewColorModel{ Id = 7, Color = "#ff7000" },
+          new CollectionViewColorModel{ Id = 8, Color = "#ff9f00" },
+          new CollectionViewColorModel{ Id = 9, Color = "#ffb200" },
+          new CollectionViewColorModel{ Id = 10, Color = "#cf9702" },
         };
 
       this.ItemsSource = this.Colors;
